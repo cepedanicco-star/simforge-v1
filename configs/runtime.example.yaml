@@ -1,0 +1,11 @@
+# Run from the repository root. Keep filled configurations in *.local.yaml.
+native_python: <LOCAL_NATIVE_PYTHON>
+arguments_file: configs/expert-arguments.local.yaml
+checkpoint: local/checkpoint_p5.pt
+execution_parameters: configs/execution-parameters.yaml
+run_root: runs
+output: runs/new-episode-001
+timeout_seconds: 1200
+environment:
+  AISIM_PORTABLE_ROOT: <LOCAL_KIT_PORTABLE_ROOT>
+# Optional h5py/ONNX overlay variables may be added only if your SDK needs them.

@@ -1,0 +1,94 @@
+schema_version: 1
+output: <LOCAL_OUTPUT>
+source_recording: <LOCAL_SOURCE_RECORDING>
+scene: <LOCAL_SCENE>
+isaac_python: <LOCAL_ISAAC_PYTHON>
+portable_root: <LOCAL_PORTABLE_ROOT>
+h5py_overlay: <LOCAL_H5PY_OVERLAY>
+ort_overlay: <LOCAL_ORT_OVERLAY>
+legacy_source: <LOCAL_LEGACY_SOURCE>
+leg_policy: <LOCAL_LEG_POLICY>
+temp: <LOCAL_TEMP>
+physics_hz: 200
+control_hz: 50
+duration_s: 12
+max_parallel_workers: 2
+worker_timeout_s: 600
+enhanced_determinism: true
+replay:
+  legs: unchanged matched official policy with actual state feedback
+  fixed_sequence: upper_body_and_fingers_plus_body_velocity_commands
+  start_state_index: 0
+  first_target_index: 1
+  end_before_phase: withdraw_with_cup
+  after_sequence: hold_last_motor_target
+  initial_velocities: recorded_observation_and_finite_difference
+  controller_changes_allowed: false
+grid:
+  friction:
+  - 0.3
+  - 0.6
+  - 0.9
+  mass_kg:
+  - 0.2
+  - 0.5
+  - 1.0
+  seeds:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+jitter:
+  cup_xy_m: 0.002
+  cup_z_m: 0
+  robot_position_m: 0
+preflight:
+  friction: 0.5
+  mass_kg: 0.25
+  seed: 10000
+  jitter_enabled: false
+reproducibility:
+  friction: 0.6
+  mass_kg: 0.5
+  seed: 0
+  comparison: exact_physical_metrics_no_rounding
+contact:
+  cup_prim: /World/Environment/Source/cup_V1
+  support_prim: /World/Environment/Source/SM_AI_vol8_04_kitchen_furniture_01
+  hand_side: left
+  sensor_class: isaaclab.sensors.ContactSensor
+  update_period_s: 0
+  history_length: 1
+  hand_bodies:
+  - left_hand_palm_link
+  - left_hand_thumb_0_link
+  - left_hand_index_0_link
+  - left_hand_index_1_link
+  - left_hand_middle_0_link
+  - left_hand_middle_1_link
+  - left_hand_thumb_1_link
+  - left_hand_thumb_2_link
+  filter_prim_paths_expr:
+  - /World/Environment/Source/cup_V1
+  friction_combine_mode: average
+  set_both_contact_surfaces: true
+  force_definition: sum of filtered normal-force vector magnitudes; not a full contact
+    wrench
+metrics:
+  lift_m: 0.05
+  max_slip_mm: 5
+  slip_window_s: 0.5
+  hold_s: 2
+  takeoff_m: 0.001
+  minimum_opposed_force_N: 0.05
+  maximum_support_force_N: 0.05
+  settle_linear_speed_m_s: 0.02
+  settle_angular_speed_rad_s: 0.15
+  settle_window_s: 0.5
+demo:
+  ffmpeg: <LOCAL_FFMPEG>
+  fps: 25
+  width: 1280
+  height: 720
+  display_seconds: 6

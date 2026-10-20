@@ -1,0 +1,9 @@
+# Constraints for an existing Isaac Sim 4.5 / Isaac Lab v2.1.0 Python 3.10 setup.
+# Do not install offline usd-core in the native SDK environment.
+numpy==1.26.4
+scipy==1.15.3
+Pillow==11.0.0
+PyYAML==6.0.3
+torch==2.5.1
+onnxruntime==1.20.1
+h5py==3.11.0

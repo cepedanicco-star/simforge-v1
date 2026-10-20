@@ -1,0 +1,32 @@
+scene_name: apartment
+aliases:
+- apartment
+- office
+scene: <LOCAL_SCENE>
+camera: /World/Cameras/cam01/CameraComponent
+robot_root: /World/G1
+interactive_objects:
+- path: /World/Environment/Source/cup_V1
+  role: dynamic
+  label: cup_v1
+- path: /World/Environment/Source/SM_AI_vol8_03_desk_01
+  role: static
+  label: desk
+- path: /World/G1
+  role: articulation
+  label: robot_g1
+native_runtime:
+  python: <LOCAL_PYTHON>
+  portable_root: <LOCAL_PORTABLE_ROOT>
+  h5py_overlay: <LOCAL_H5PY_OVERLAY>
+  temp: <LOCAL_TEMP>
+  timeout_s: 600
+sensor_config: <LOCAL_SENSOR_CONFIG>
+render_frames: 1
+output: <LOCAL_OUTPUT>
+m1_data: <LOCAL_M1_DATA>
+m2_data: <LOCAL_M2_DATA>
+m3_data: <LOCAL_M3_DATA>
+m3_acceptance: <LOCAL_M3_ACCEPTANCE>
+baseline_config: <LOCAL_BASELINE_CONFIG>
+source_recording: <LOCAL_SOURCE_RECORDING>

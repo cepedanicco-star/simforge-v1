@@ -1,0 +1,138 @@
+schema_version: 1
+scene: <LOCAL_SCENE>
+sensor_config: sensors_default.yaml
+label_plan: <LOCAL_LABEL_PLAN>
+lighting_calibration: <LOCAL_LIGHTING_CALIBRATION>
+lighting_reference:
+  distance_m: 0.45
+  width_m: 0.2
+  height_m: 0.2
+source_recording: <LOCAL_SOURCE_RECORDING>
+output: <LOCAL_OUTPUT>
+global_seed: 42
+variants: 6
+resolution:
+- 1280
+- 720
+frames_per_variant: 1
+native_runtime:
+  python: <LOCAL_PYTHON>
+  portable_root: <LOCAL_PORTABLE_ROOT>
+  h5py_overlay: <LOCAL_H5PY_OVERLAY>
+  temp: <LOCAL_TEMP>
+  timeout_s: 600
+dimensions:
+  D1:
+    enabled: true
+    distribution: uniform
+    timing: episode_start
+    center:
+      illuminance_lux: 1750
+      temperature_K: 5500
+    illuminance_lux:
+    - 500
+    - 3000
+    temperature_K:
+    - 3000
+    - 8000
+    reference: native PtIlluminance AOV; intensity is not relabeled as lux
+  D2:
+    enabled: true
+    distribution: uniform
+    timing: episode_start
+    center:
+      roughness: 0.55
+      hue_degrees: 0
+    roughness:
+    - 0.2
+    - 0.9
+    hue_degrees:
+    - -15
+    - 15
+    exclude_transmissive: true
+  D3:
+    enabled: true
+    distribution: discrete_uniform
+    timing: episode_start
+    center:
+      count: 1.5
+    count:
+    - 0
+    - 3
+    proposal_count: 128
+    box_size_m:
+    - 0.06
+    - 0.06
+    - 0.08
+    support_prim: /World/Environment/Source/SM_AI_vol8_04_kitchen_furniture_01
+    support_height_m:
+    - 0.65
+    - 1.2
+    target_clearance_m: 0.35
+    route_clearance_m: 0.55
+    other_object_clearance_m: 0.01
+    support_gap_m: 0.0001
+  D4:
+    enabled: true
+    distribution: uniform
+    timing: episode_start
+    center:
+      position_m:
+      - 0
+      - 0
+      - 0
+      yaw_degrees: 0
+    position_m:
+    - -0.05
+    - 0.05
+    axes:
+    - x
+    - y
+    z_rule: preserve_support_height
+    yaw_degrees:
+    - -30
+    - 30
+    target_prim: /World/Environment/Source/cup_V1
+  D5:
+    enabled: true
+    distribution: uniform
+    timing: episode_start
+    center:
+      position_m:
+      - 0
+      - 0
+      - 0
+      euler_rad:
+      - 0
+      - 0
+      - 0
+      fov_scale: 1
+    position_m:
+    - -0.05
+    - 0.05
+    euler_rad:
+    - -0.1
+    - 0.1
+    fov_scale:
+    - 0.95
+    - 1.05
+    intrinsics_rule: exact_native_projection_and_tangent_relation
+    require_free_space: true
+    min_collider_clearance_m: 0.15
+    proposal_count: 128
+  D6:
+    enabled: true
+    distribution: uniform
+    timing: episode_start
+    center:
+      friction: 0.7
+      mass_kg: 0.25
+    friction:
+    - 0.4
+    - 1.0
+    mass_scale:
+    - 0.7
+    - 1.3
+    nominal_mass_kg: 0.25
+    nominal_friction: 0.5
+    inertia_rule: full_tensor_scales_with_mass

@@ -1,0 +1,54 @@
+scene: apartment
+baseline:
+  nominal_cup_mass_kg:
+    value: 0.25
+    status: USER_AUTHORIZED_ESTIMATE
+    source: prior user authorization for a typical empty ceramic mug, not a weighing
+  nominal_friction:
+    value: 0.5
+    status: SIMULATION_REFERENCE_NOT_MEASURED
+    source: Isaac Lab v2.1.0 RigidBodyMaterialCfg (physics_materials_cfg.py lines
+      42/45); not a calibrated ceramic/finger pair
+  grasp_success_rate_percent:
+    value: 4.444444444444445
+    status: SIMULATED_MEASURED_M2_GRID
+    successes: 2
+    trials: 45
+    scope: mixed friction/mass grid, not nominal-only or full-transfer success rate
+    predicate: lift>=50mm AND slip<=5mm in first 0.5s AND retention>=2s
+  slip_friction_boundary:
+    value: null
+    status: NOT_IDENTIFIED_NON_MONOTONIC_GRID
+    reason: mu=0.3 and 0.6 each succeeded 1/5 at 0.5kg; other cells 0/5; no universal
+      cutoff inferred
+  mass_sensitivity:
+    value:
+      0.2kg:
+        successes: 0
+        trials: 15
+      0.5kg:
+        successes: 2
+        trials: 15
+      1.0kg:
+        successes: 0
+        trials: 15
+    status: SIMULATED_OBSERVED_FIXED_GRASP
+  nominal_grasp_preflight:
+    mass_kg: 0.25
+    friction: 0.5
+    success: false
+    slip_distance_mm: 15.210179
+    scope: instrumentation calibration outside 45 primary trials
+  m2_evidence:
+    directory: <LOCAL_DIRECTORY>
+    raw_csv: raw.csv
+    report: sweep-report.json
+    independent_audit: independent-sweep-audit.json
+    exact_repeat_metrics: true
+    exact_repeat_arrays: true
+    acceptance_passed: true
+    force_definition: filtered normal forces, not a full contact wrench
+    limitations: simulation estimates; cup material also affects cabinet contact;
+      no new RL training
+  full_transfer_single_episode_passed: true
+  full_transfer_is_randomized_success_rate: false

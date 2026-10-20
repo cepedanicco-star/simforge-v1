@@ -1,0 +1,39 @@
+schema_version: 1
+scene: <LOCAL_SCENE>
+label_plan: <LOCAL_LABEL_PLAN>
+output: <LOCAL_OUTPUT>
+camera: /World/Cameras/cam01/CameraComponent
+resolution:
+- 2048
+- 1152
+frames: 20
+time_code_start: 0
+time_code_step: 1
+rt_subframes: 4
+channels:
+- rgb
+- distance_to_image_plane
+- semantic_segmentation
+- instance_segmentation
+- bounding_box_2d_tight
+- bounding_box_2d_loose
+- bounding_box_3d
+- camera_params
+- normals
+required_labels:
+  /World/Environment/Source/cup_V1: cup_v1
+  /World/Environment/Source/SM_AI_vol8_03_desk_01: desk
+  /World/G1: robot_g1
+label_overrides:
+  /World/Environment/Source/cup_V1: cup_v1
+  /World/Environment/Source/SM_AI_vol8_03_desk_01: desk
+  /World/G1: robot_g1
+acceptance:
+  max_box_edge_error_px: 5
+  max_principal_point_error_px: 2
+  depth_target_tolerance_m: 0.015
+  depth_sample_stride: 16
+demo:
+  fps: 4
+  depth_far_m: 10
+  ffmpeg: <LOCAL_FFMPEG>

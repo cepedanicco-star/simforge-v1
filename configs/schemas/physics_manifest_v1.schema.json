@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Physics Manifest V1 — 逐物体物理参数标定清单",
+  "description": "仿真建模工程师核心交付物。与 USD 的 UsdPhysics(MassAPI/CollisionAPI) 一一对应，是'物理上对不对'的可审计证据。填写后可用 jsonschema 校验。",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "scope",
+    "objects"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "scene": {
+          "type": "string",
+          "description": "来源 USD 路径"
+        },
+        "source_inventory_complete": {
+          "type": "boolean"
+        },
+        "friction_reference": {
+          "type": "string",
+          "description": "摩擦系数参考依据，如 CRC Handbook / 材料库"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "objects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "object_id",
+          "prim_path",
+          "role",
+          "collider"
+        ],
+        "properties": {
+          "object_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "prim_path": {
+            "type": "string",
+            "pattern": "^/"
+          },
+          "role": {
+            "enum": [
+              "static",
+              "dynamic",
+              "articulated",
+              "visual_only",
+              "preserve"
+            ]
+          },
+          "collider": {
+            "type": "string",
+            "enum": [
+              "convexHull",
+              "sdf",
+              "boundingCube",
+              "boundingSphere",
+              "mesh",
+              "none"
+            ],
+            "description": "碰撞近似类型；家具/杯子用 convexHull，地面用 boundingCube，复杂形用 sdf"
+          },
+          "mass_kg": {
+            "type": "number",
+            "minimum": 0,
+            "description": "质量 kg；static 可省略"
+          },
+          "inertia_diagonal_kgm2": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 3,
+            "maxItems": 3,
+            "description": "主轴惯量 [Ixx,Iyy,Izz] kg·m²，按包围盒近似：Ixx=1/12*m*(h²+d²) 等"
+          },
+          "dynamic_friction": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1.5
+          },
+          "static_friction": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1.5
+          },
+          "restitution": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "material_class": {
+            "type": "string",
+            "description": "wood/fabric/ceramic/metal/glass/plastic/concrete"
+          },
+          "density_kg_m3": {
+            "type": "number",
+            "description": "真实材质密度，用于标定质量"
+          },
+          "reviewed": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}

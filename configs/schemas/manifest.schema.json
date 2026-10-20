@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AI Simulation Workflow V1 object manifest",
+  "type": "object",
+  "required": ["schema_version", "scope", "objects"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "scope": {
+      "type": "object",
+      "required": ["source_inventory_complete"],
+      "properties": {"source_inventory_complete": {"type": "boolean"}, "description": {"type": "string"}}
+    },
+    "objects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["object_id", "prim_path"],
+        "properties": {
+          "object_id": {"type": "string", "minLength": 1},
+          "prim_path": {"type": "string", "pattern": "^/"},
+          "class_name": {"type": "string", "minLength": 1},
+          "role": {"enum": ["static", "dynamic", "articulated", "visual_only", "preserve"]},
+          "reviewed": {"type": "boolean"},
+          "physics_profile": {"type": "string"},
+          "source": {"type": "string"}
+        }
+      }
+    }
+  }
+}

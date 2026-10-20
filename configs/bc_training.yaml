@@ -1,0 +1,7 @@
+dataset: local/privileged-demos.npz
+output: runs/bc-new-001
+epochs: 2500
+patience: 120
+seed: 1904
+seconds: 300
+synthetic_weight: 0.5
